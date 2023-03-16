@@ -6,6 +6,8 @@ using ReportsApplication.Interfaces;
 using ReportsPersistence;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using Reports.WebApi.Middleware;
+using Reports.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,7 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 
+app.UseCustomExceptionHandler();
 
 app.UseCors("AllowAll");
 
