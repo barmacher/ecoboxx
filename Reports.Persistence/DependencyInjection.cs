@@ -17,7 +17,7 @@ namespace ReportsPersistence
         public static IServiceCollection AddPersistence(this IServiceCollection
             services, IConfiguration configuration)
         {
-            var connectionString = configuration["DbConnection"];
+            var connectionString = configuration.GetConnectionString("ConnectionString");
             services.AddDbContext<ReportsDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
