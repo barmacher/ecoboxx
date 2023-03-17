@@ -9,6 +9,7 @@ namespace ReportsApplication.Queries.GetReportList
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
+        public string Details { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -16,7 +17,9 @@ namespace ReportsApplication.Queries.GetReportList
                 .ForMember(reportDto => reportDto.Id,
                 opt => opt.MapFrom(report => report.Id))
                 .ForMember(reportDto => reportDto.Title,
-                opt => opt.MapFrom(report => report.Title));
+                opt => opt.MapFrom(report => report.Title))
+                .ForMember(reportDto => reportDto.Details,
+                opt => opt.MapFrom(report => report.Details));
         }
     }
 }
