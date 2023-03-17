@@ -13,7 +13,6 @@ namespace ReportsApplication.Commands.DeleteCommand
         public DeleteReportCommandValidator()
         {
             RuleFor(deleteReportCommand => deleteReportCommand.Id).NotEqual(Guid.Empty);
-            RuleFor(deleteReportCommand => deleteReportCommand.UserId).NotEqual(Guid.Empty);
         }
     }
 }

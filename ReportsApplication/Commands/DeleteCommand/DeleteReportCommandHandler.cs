@@ -25,10 +25,10 @@ namespace ReportsApplication.Reports.Commands.DeleteCommand
             var entity = await _dbContext.Reports
                 .FindAsync(new object[] { request.Id }, cancellationToken);
 
-            //if (entity == null || entity.UserId != request.UserId)
-            //{
-            //    throw new NotFoundException(nameof(Reports), request.Id);
-            //}
+            if (entity == null || entity.UserId != request.UserId)
+            {
+                throw new NotFoundException(nameof(Reports), request.Id);
+            }
 
             _dbContext.Reports.Remove(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);
