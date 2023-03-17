@@ -54,6 +54,7 @@ namespace Reports.WebApi.Controllers
         {
             var command = _mapper.Map<UpdateReportCommand>(updateReportDto);
             command.UserId = UserId;
+            await Mediator.Send(command);
             return NoContent();
         }
 
