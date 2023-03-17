@@ -62,7 +62,6 @@ namespace Reports.WebApi.Controllers
         {
             var command = new DeleteReportCommand
             {
-                UserId = UserId,
                 Id = id
             };
             await Mediator.Send(command);
