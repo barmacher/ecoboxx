@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace ReportsApplication.Common.Mapping
+namespace ApplicationsApp.Common.Mapping
 {
     public class AssebmlyMappingProfile : Profile
     {

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using ReportsApplication.Common.Exceptions;
+using ApplicationsApp.Common.Exceptions;
 using System.Net;
 using System.Text.Json;
-using ReportsApplication.Common.Exceptions;
+using ApplicationsApp.Common.Exceptions;
 
-namespace Reports.WebApi.Middleware
+namespace Applications.WebApi.Middleware
 {
     public class CustomExceptionHandlerMiddleware
     {

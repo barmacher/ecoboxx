@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReportsPersistence
+namespace EcoboxPersistence
 {
     public class DbInitializer
     {
-        public static void Initialize(ReportsDbContext context)
+        public static void Initialize(ApplicationsDbContext context)
         {
             context.Database.EnsureCreated();
         }

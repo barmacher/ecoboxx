@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using FluentValidation;
-using ReportsApplication.Behaviors;
+using ApplicationsApp.Behaviors;
 
-namespace ReportsApplication
+namespace ApplicationsApp
 {
     public static class DependencyInjection
     {

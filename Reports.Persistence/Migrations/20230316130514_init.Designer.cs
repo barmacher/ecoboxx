@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ReportsPersistence;
+using EcoboxPersistence;
 
 #nullable disable
 
-namespace Reports.Persistence.Migrations
+namespace Applications.Persistence.Migrations
 {
-    [DbContext(typeof(ReportsDbContext))]
+    [DbContext(typeof(ApplicationsDbContext))]
     [Migration("20230316130514_init")]
     partial class init
     {

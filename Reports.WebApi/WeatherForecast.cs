@@ -1,4 +1,4 @@
-namespace Reports.WebApi
+namespace Applications.WebApi
 {
     public class WeatherForecast
     {

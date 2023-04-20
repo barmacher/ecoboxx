@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace ReportsApplication.Behaviors
+namespace ApplicationsApp.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse> 
         : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>

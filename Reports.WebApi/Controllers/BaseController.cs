@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Reports.WebApi.Controllers
+namespace Applications.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

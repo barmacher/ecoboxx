@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/EcoboxWebapi/apis/EcoboxWeb",
+      "type": "apis.azure"
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/ecobox/databases/Ecobox.Web_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionString"
+    }
+  }
+}

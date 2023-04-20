@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Reports.WebApi.Middleware
+namespace Applications.WebApi.Middleware
 {
     public static class CustomExceptionHandlerMiddlewareExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReportsApplication.Interfaces;
+using ApplicationsApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ReportsPersistence
+namespace EcoboxPersistence
 {
     public static class DependencyInjection
     {
@@ -18,12 +18,12 @@ namespace ReportsPersistence
             services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("ConnectionString");
-            services.AddDbContext<ReportsDbContext>(options =>
+            services.AddDbContext<ApplicationsDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             });
-            services.AddScoped<IReportsDbContext>(provider =>
-            provider.GetService<ReportsDbContext>());
+            services.AddScoped<IApplicationsDbContext>(provider =>
+            provider.GetService<ApplicationsDbContext>());
             return services;
         }
     }
