@@ -11,7 +11,7 @@ namespace ApplicationsApp.Queries.GetReportList
     {
         public GetApplicationListQueryValidator() 
         {
-            RuleFor(x => x.UserId).NotEqual(Guid.Empty);
+            RuleFor(x => x.UserId).NotEqual(0);
         }
     }
 }

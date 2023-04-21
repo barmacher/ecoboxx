@@ -30,14 +30,15 @@ namespace Applications.Persistence.Migrations
 
                     b.Property<string>("Adress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime?>("EditDate")
                         .HasColumnType("datetime2");
@@ -45,10 +46,7 @@ namespace Applications.Persistence.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -56,7 +54,7 @@ namespace Applications.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Applications");
                 });
@@ -90,7 +88,6 @@ namespace Applications.Persistence.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -268,9 +265,13 @@ namespace Applications.Persistence.Migrations
 
             modelBuilder.Entity("Applications.Domain.Application", b =>
                 {
-                    b.HasOne("Applications.Domain.User", null)
+                    b.HasOne("Applications.Domain.User", "User")
                         .WithMany("Applications")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Ecobox.Domain.UserRole", b =>

@@ -9,7 +9,7 @@ namespace ApplicationsApp.Applications.Commands.CreateReport
 {
     public class CreateApplicationCommand : IRequest<Guid>
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
 
         public string Description { get; set; }
 

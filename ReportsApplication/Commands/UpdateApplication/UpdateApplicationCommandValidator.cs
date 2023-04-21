@@ -12,7 +12,7 @@ namespace ApplicationsApp.Commands.UpdateReport
     {
         public UpdateApplicationCommandValidator() 
         {
-            RuleFor(updateValidationCommand => updateValidationCommand.UserId).NotEqual(Guid.Empty);
+            RuleFor(updateValidationCommand => updateValidationCommand.UserId).NotEqual(0);
             RuleFor(updateApplicationCommand => updateApplicationCommand.Id).NotEqual(Guid.Empty);
             RuleFor(updateApplicationtCommand => updateApplicationtCommand.Description)
                 .NotEmpty().MaximumLength(500);

@@ -9,7 +9,7 @@ namespace ApplicationsApp.Queries.GetReportDetails
 {
     public class GetApplicationDetailsQuery : IRequest<ApplicationDetailsVm>
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public Guid Id { get; set; }
     }
 }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Applications.Domain;
+using ApplicationsApp.Common.Exceptions;
+using ApplicationsApp.Interfaces;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Applications.Domain;
-using ApplicationsApp.Common.Exceptions;
-using ApplicationsApp.Interfaces;
 
 namespace ApplicationsApp.Queries.GetReportDetails
 {
@@ -29,17 +24,13 @@ namespace ApplicationsApp.Queries.GetReportDetails
         {
             var entity = await _dbContext.Applications
                 .FirstOrDefaultAsync(Applications
-                =>Applications.Id ==request.Id, cancellationToken);
+                => Applications.Id == request.Id, cancellationToken);
 
-            if(entity == null || entity.UserId != request.UserId)
+            if (entity == null || entity.UserId != request.UserId)
             {
                 throw new NotFoundException(nameof(Application), request.Id);
             }
             return _mapper.Map<ApplicationDetailsVm>(entity);
-            
         }
-            
-
-        
     }
 }

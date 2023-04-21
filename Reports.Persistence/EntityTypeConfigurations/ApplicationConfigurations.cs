@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Applications.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Identity.Client;
-using Applications.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EcoboxPersistence.EntityTypeConfiguration
 {
@@ -14,7 +8,7 @@ namespace EcoboxPersistence.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Application> builder)
         {
-            builder.HasKey(applcation=> applcation.Id);
+            builder.HasKey(applcation => applcation.Id);
             builder.HasIndex(applcation => applcation.Id).IsUnique();
         }
     }

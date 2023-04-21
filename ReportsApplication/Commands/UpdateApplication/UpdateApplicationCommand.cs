@@ -9,7 +9,7 @@ namespace ApplicationsApp.Applications.Commands.UpdateReport
 {
     public class UpdateApplicationCommand : IRequest
     {
-        public Guid UserId { get; set; }    
+        public int UserId { get; set; }    
 
         public Guid Id { get; set; }
 

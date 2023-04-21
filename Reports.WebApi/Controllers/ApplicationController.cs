@@ -7,6 +7,7 @@ using ApplicationsApp.Queries.GetReportList;
 using ApplicationsApp.Applications.Commands.CreateReport;
 using ApplicationsApp.Applications.Commands.DeleteCommand;
 using ApplicationsApp.Applications.Commands.UpdateReport;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Applications.WebApi.Controllers
 {
@@ -16,6 +17,7 @@ namespace Applications.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         public ApplicationController(IMapper mapper) => _mapper = mapper;
+        
         [HttpGet]
         public async Task<ActionResult<ApplicationListVm>> GetAll()
         {
@@ -26,6 +28,7 @@ namespace Applications.WebApi.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationListVm>> Get(Guid id)
         {
@@ -40,6 +43,7 @@ namespace Applications.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateApplicationDto createApplicationDto)
         {
             var command = _mapper.Map<CreateApplicationCommand>(createApplicationDto);

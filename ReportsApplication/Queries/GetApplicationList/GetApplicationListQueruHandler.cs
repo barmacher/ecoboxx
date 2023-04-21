@@ -1,8 +1,7 @@
-﻿using AutoMapper;
+﻿using ApplicationsApp.Interfaces;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using ApplicationsApp.Interfaces;
-using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationsApp.Queries.GetReportList
@@ -27,8 +26,8 @@ namespace ApplicationsApp.Queries.GetReportList
                 .ProjectTo<ApplicationLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new ApplicationListVm { Reports= applicationsQuery };  
-        } 
+            return new ApplicationListVm { Reports = applicationsQuery };
+        }
     }
 
 }

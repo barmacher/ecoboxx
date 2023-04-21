@@ -11,6 +11,7 @@ namespace Applications.WebApi.Models
         public string Adress { get; set; }
 
         public int Number { get; set; }
+        public int UserId { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -20,7 +21,9 @@ namespace Applications.WebApi.Models
                 .ForMember(applicationCommand => applicationCommand.Adress,
                 opt => opt.MapFrom(applicationDto => applicationDto.Adress))
                 .ForMember(applicationCommand => applicationCommand.Number,
-                opt => opt.MapFrom(applicationDto => applicationDto.Number));
+                opt => opt.MapFrom(applicationDto => applicationDto.Number))
+                .ForMember(applicationCommand => applicationCommand.UserId,
+                opt => opt.MapFrom(applicationDto => applicationDto.UserId));
         }     
     }
 }
