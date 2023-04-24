@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Ecobox.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Applications.Domain
 {
+    [Index(nameof(BrigadeId), IsUnique = false)]
     public class Application
     {
         [Key]
@@ -19,7 +22,11 @@ namespace Applications.Domain
         
         public DateTime? EditDate { get; set;}
 
+        public ApplicationStatus Status{ get; set; }
+
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public int? BrigadeId { get; set; }
     }
 }

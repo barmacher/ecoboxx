@@ -24,6 +24,7 @@ namespace EcoboxPersistence
             });
             services.AddScoped<IApplicationsDbContext>(provider =>
             provider.GetService<ApplicationsDbContext>());
+
             return services;
         }
     }

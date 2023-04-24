@@ -19,7 +19,7 @@ namespace Ecobox.WebApi.Auth
         }
         public async Task<string> AccessToken(string email, string password)
         {
-            var user = await _userManager.FindByNameAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 throw new Exception("User is not found");
