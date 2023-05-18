@@ -4,19 +4,16 @@ using EcoboxPersistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Applications.Persistence.Migrations
+namespace EcoboxPersistence.Migrations
 {
     [DbContext(typeof(ApplicationsDbContext))]
-    [Migration("20230421034139_InitIdentity")]
-    partial class InitIdentity
+    partial class ApplicationsDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +33,9 @@ namespace Applications.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("BrigadeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -49,10 +49,15 @@ namespace Applications.Persistence.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrigadeId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -75,6 +80,10 @@ namespace Applications.Persistence.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -131,6 +140,66 @@ namespace Applications.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
+                    b.UseTphMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "473f7556-07d8-4be3-b337-cbcb38784820",
+                            Email = "InitManager@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEMNoaEy3IXBcexOJIznQMqko2zLo5b5dU7Af9K5PGxjZU6iO56S3Sm25mJ2Di52Tig==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "InitManager@gmail.com"
+                        });
+                });
+
+            modelBuilder.Entity("Ecobox.Domain.BrigadeMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BrigadeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactPhone")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("WorkExperience")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrigadeId");
+
+                    b.ToTable("BrigadeMembers");
                 });
 
             modelBuilder.Entity("Ecobox.Domain.Role", b =>
@@ -161,6 +230,36 @@ namespace Applications.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "Manager",
+                            Name = "Manager",
+                            NormalizedName = "Manager"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "BrigadeAccount",
+                            Name = "BrigadeAccount",
+                            NormalizedName = "BrigadeAccount"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "Client",
+                            Name = "Client",
+                            NormalizedName = "Client"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConcurrencyStamp = "Admin",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Ecobox.Domain.UserRole", b =>
@@ -176,6 +275,13 @@ namespace Applications.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -266,8 +372,23 @@ namespace Applications.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Ecobox.Domain.Brigade", b =>
+                {
+                    b.HasBaseType("Applications.Domain.User");
+
+                    b.Property<string>("InformalName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasDiscriminator().HasValue("Brigade");
+                });
+
             modelBuilder.Entity("Applications.Domain.Application", b =>
                 {
+                    b.HasOne("Ecobox.Domain.Brigade", null)
+                        .WithMany("AssignedApplications")
+                        .HasForeignKey("BrigadeId");
+
                     b.HasOne("Applications.Domain.User", "User")
                         .WithMany("Applications")
                         .HasForeignKey("UserId")
@@ -275,6 +396,15 @@ namespace Applications.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Ecobox.Domain.BrigadeMember", b =>
+                {
+                    b.HasOne("Ecobox.Domain.Brigade", "Brigade")
+                        .WithMany("BrigadeMembers")
+                        .HasForeignKey("BrigadeId");
+
+                    b.Navigation("Brigade");
                 });
 
             modelBuilder.Entity("Ecobox.Domain.UserRole", b =>
@@ -331,6 +461,13 @@ namespace Applications.Persistence.Migrations
             modelBuilder.Entity("Applications.Domain.User", b =>
                 {
                     b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Ecobox.Domain.Brigade", b =>
+                {
+                    b.Navigation("AssignedApplications");
+
+                    b.Navigation("BrigadeMembers");
                 });
 #pragma warning restore 612, 618
         }

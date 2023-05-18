@@ -3,17 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Applications.Persistence.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace EcoboxPersistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitIdentity : Migration
+    public partial class test321 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Reports");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -36,6 +35,8 @@ namespace Applications.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InformalName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -87,11 +88,18 @@ namespace Applications.Persistence.Migrations
                     Number = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BrigadeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Applications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Applications_AspNetUsers_BrigadeId",
+                        column: x => x.BrigadeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Applications_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -185,6 +193,55 @@ namespace Applications.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BrigadeMembers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ContactPhone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    WorkExperience = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    BrigadeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BrigadeMembers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BrigadeMembers_AspNetUsers_BrigadeId",
+                        column: x => x.BrigadeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "Manager", "Manager", "Manager" },
+                    { 2, "BrigadeAccount", "BrigadeAccount", "BrigadeAccount" },
+                    { 3, "Client", "Client", "Client" },
+                    { 4, "Admin", "Admin", "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { 1, 0, "473f7556-07d8-4be3-b337-cbcb38784820", "User", "InitManager@gmail.com", false, false, null, null, null, null, "AQAAAAEAACcQAAAAEMNoaEy3IXBcexOJIznQMqko2zLo5b5dU7Af9K5PGxjZU6iO56S3Sm25mJ2Di52Tig==", null, false, null, false, "InitManager@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_BrigadeId",
+                table: "Applications",
+                column: "BrigadeId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_Id",
                 table: "Applications",
@@ -234,6 +291,11 @@ namespace Applications.Persistence.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BrigadeMembers_BrigadeId",
+                table: "BrigadeMembers",
+                column: "BrigadeId");
         }
 
         /// <inheritdoc />
@@ -258,32 +320,13 @@ namespace Applications.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BrigadeMembers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.CreateTable(
-                name: "Reports",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EditDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reports", x => x.Id);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reports_Id",
-                table: "Reports",
-                column: "Id",
-                unique: true);
         }
     }
 }

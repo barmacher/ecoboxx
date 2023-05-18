@@ -8,6 +8,7 @@ using ApplicationsApp.Applications.Commands.CreateReport;
 using ApplicationsApp.Applications.Commands.DeleteCommand;
 using ApplicationsApp.Applications.Commands.UpdateReport;
 using Microsoft.AspNetCore.Authorization;
+using Azure.Core;
 
 namespace Applications.WebApi.Controllers
 {
@@ -73,6 +74,19 @@ namespace Applications.WebApi.Controllers
             return NoContent();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Manager")]
+        public async Task<ActionResult<Guid>> AssignApplicationToBrigade(ApplicationId applicationId, [FromBody] int brigadeId)
+        {
+            var query = new GetApplicationDetailsQuery
+            {
+                BrigadeId = brigadeId,
+                
+                
+            };
+            return Ok(applicationId);
+
+        }
 
     }
 }

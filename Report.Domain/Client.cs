@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Applications.Domain;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace Ecobox.Domain
 {
     public class Client : IdentityUser<int>
     {
+        public string? Name { get; set; }
+        public List<Application>? Applications { get; set; }
     }
 }

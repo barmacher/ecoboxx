@@ -105,5 +105,43 @@ namespace Ecobox.WebApi.Controllers
             await _dbContext.BrigadeMembers.AddAsync(firstBrigadeMember);
             await _dbContext.SaveChangesAsync();
         }
+        [HttpPost("register/manager")]
+        [Authorize(Roles = "Manager")]
+        public async Task RegisterManagerAccount(string email, string password)
+        {
+            var managerAccount = new User()
+            {
+                Email = email,
+                UserName = email,
+            };
+
+            var existingUser = await _userManager.FindByNameAsync(managerAccount.UserName);
+
+            if (existingUser != null)
+                throw new Exception("User with such email already exists");
+
+            var result = await _userManager.CreateAsync(managerAccount, password);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(
+                    result.Errors
+                        .Select(error => error.Description)
+                        .Aggregate((x, y) => x + ";" + y));
+            }
+
+            result = await _userManager.AddToRoleAsync(managerAccount, RoleType.Manager.ToString());
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(
+                    result.Errors
+                        .Select(error => error.Description)
+                        .Aggregate((x, y) => x + ";" + y));
+            }
+
+            var createdAcc = _userManager.FindByEmailAsync(email);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace ApplicationsApp.Queries.GetReportList
                 .ProjectTo<ApplicationLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new ApplicationListVm { Reports = applicationsQuery };
+            return new ApplicationListVm { Applications = applicationsQuery };
         }
     }
 

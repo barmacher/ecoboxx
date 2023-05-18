@@ -9,7 +9,7 @@ namespace ApplicationsApp.Queries.GetReportList
 {
     public class ApplicationListVm : IRequest<ApplicationListVm>
     {
-        public IList<ApplicationLookupDto> Reports { get; set; }
+        public IList<ApplicationLookupDto> Applications { get; set; }
 
     }
 }
