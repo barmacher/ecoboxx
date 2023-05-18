@@ -9,6 +9,9 @@ using ApplicationsApp.Applications.Commands.DeleteCommand;
 using ApplicationsApp.Applications.Commands.UpdateReport;
 using Microsoft.AspNetCore.Authorization;
 using Azure.Core;
+using Applications.Domain;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Ecobox.Applications.Commands.AssignApplication;
 
 namespace Applications.WebApi.Controllers
 {
@@ -18,7 +21,7 @@ namespace Applications.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         public ApplicationController(IMapper mapper) => _mapper = mapper;
-        
+
         [HttpGet]
         public async Task<ActionResult<ApplicationListVm>> GetAll()
         {
@@ -74,16 +77,17 @@ namespace Applications.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("assingToBrigade")]
         [Authorize(Roles = "Manager")]
-        public async Task<ActionResult<Guid>> AssignApplicationToBrigade(ApplicationId applicationId, [FromBody] int brigadeId)
+        public async Task<ActionResult<Guid>> AssignApplicationToBrigade(Guid applicationId, [FromBody] int brigadeId)
         {
-            var query = new GetApplicationDetailsQuery
+            var command = new AssignApplicationCommand
             {
+                ApplicationId = applicationId,
                 BrigadeId = brigadeId,
-                
-                
+
             };
+            await Mediator.Send(command);
             return Ok(applicationId);
 
         }

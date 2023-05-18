@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoboxPersistence.Migrations
 {
     [DbContext(typeof(ApplicationsDbContext))]
-    [Migration("20230518104347_test321")]
-    partial class test321
+    [Migration("20230518171733_test1")]
+    partial class test1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,11 +153,13 @@ namespace EcoboxPersistence.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "473f7556-07d8-4be3-b337-cbcb38784820",
+                            ConcurrencyStamp = "ea563a57-96c1-4655-8131-3116aa952d0f",
                             Email = "InitManager@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMNoaEy3IXBcexOJIznQMqko2zLo5b5dU7Af9K5PGxjZU6iO56S3Sm25mJ2Di52Tig==",
+                            NormalizedEmail = "InitManager@gmail.com",
+                            NormalizedUserName = "InitManager@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJbFSoXAu1sE5BWChc0DhRA8SSEH2ya/Yf0yfIEG60oxQ2eVmTFyz/H4QDpdaUtNlA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "InitManager@gmail.com"

@@ -83,7 +83,7 @@ namespace Ecobox.WebApi.Controllers
                         .Aggregate((x, y) => x + ";" + y));
             }
 
-            result = await _userManager.AddToRoleAsync(brigadeAccount, RoleType.Manager.ToString());
+            result = await _userManager.AddToRoleAsync(brigadeAccount, RoleType.BrigadeAccount.ToString());
 
             if (!result.Succeeded)
             {
@@ -94,16 +94,17 @@ namespace Ecobox.WebApi.Controllers
             }
 
             var createdAcc = _userManager.FindByEmailAsync(email);
-            var firstBrigadeMember = new BrigadeMember()
-            {
-                Email = email,
-                FirstName = brigaderName,
-                LastName = brigaderSurname,
-                BrigadeId = createdAcc.Id
-            };
-
-            await _dbContext.BrigadeMembers.AddAsync(firstBrigadeMember);
             await _dbContext.SaveChangesAsync();
+            //var firstBrigadeMember = new BrigadeMember()
+            //{
+            //    Email = email,
+            //    FirstName = brigaderName,
+            //    LastName = brigaderSurname,
+            //    BrigadeId = createdAcc.Id
+            //};
+
+            //await _dbContext.BrigadeMembers.AddAsync(firstBrigadeMember);
+            //await _dbContext.SaveChangesAsync();
         }
         [HttpPost("register/manager")]
         [Authorize(Roles = "Manager")]

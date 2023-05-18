@@ -28,13 +28,13 @@ var config = new ConfigurationBuilder()
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationsDbContext>();
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApplicationsDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserManager<User>>();
 
 builder.Services.AddSwaggerGen(x =>
             {
-            x.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Thesis" });
+            x.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Ecobox" });
 
             x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

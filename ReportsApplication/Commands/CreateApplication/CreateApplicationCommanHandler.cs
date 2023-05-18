@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationsApp.Applications.Commands.CreateReport
 {
-    internal class CreateApplicationCommanHandler : IRequestHandler<CreateApplicationCommand, Guid>
+    public class CreateApplicationCommanHandler : IRequestHandler<CreateApplicationCommand, Guid>
     {
         private readonly IApplicationsDbContext _dbContext;
 

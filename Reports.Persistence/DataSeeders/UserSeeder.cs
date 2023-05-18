@@ -3,6 +3,7 @@ using Ecobox.Domain;
 using Ecobox.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace EcoboxPersistence.DataSeeders
 {
@@ -33,28 +34,33 @@ namespace EcoboxPersistence.DataSeeders
             }
         }
 
-        private static void SeedUsers(ModelBuilder modelBuilder)
+        private static void SeedUser(ModelBuilder modelBuilder, RoleType roleType, int id, string userName, string password)
         {
-            int userId = 1;
             var user = new User
             {
-                Id = userId,
-                UserName = "InitManager@gmail.com",
-                Email = "InitManager@gmail.com",
+                Id = id,
+                UserName = userName,
+                Email = userName,
+                NormalizedEmail = userName.Normalize(),
+                NormalizedUserName = userName.Normalize(),
             };
 
             var passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "P@ssw0rd!");
+            user.PasswordHash = passwordHasher.HashPassword(user, password);
 
             // Add the user to the database
             modelBuilder.Entity<User>().HasData(user);
 
             var userRole = new UserRole()
             {
-                RoleId = (int) RoleType.Manager,
-                UserId = userId
+                RoleId = (int)roleType,
+                UserId = id
             };
             modelBuilder.Entity<UserRole>().HasData(userRole);
+        }
+        private static void SeedUsers(ModelBuilder modelBuilder)
+        {
+            SeedUser(modelBuilder, RoleType.Manager, 1, "InitManager@gmail.com", "P@ssw0rd!");
         }
     }
 }

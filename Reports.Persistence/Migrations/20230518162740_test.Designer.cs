@@ -4,6 +4,7 @@ using EcoboxPersistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoboxPersistence.Migrations
 {
     [DbContext(typeof(ApplicationsDbContext))]
-    partial class ApplicationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518162740_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,13 +153,11 @@ namespace EcoboxPersistence.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ea563a57-96c1-4655-8131-3116aa952d0f",
+                            ConcurrencyStamp = "d2ef1121-2cd5-4cc6-b79f-fecf546a6fc8",
                             Email = "InitManager@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "InitManager@gmail.com",
-                            NormalizedUserName = "InitManager@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJbFSoXAu1sE5BWChc0DhRA8SSEH2ya/Yf0yfIEG60oxQ2eVmTFyz/H4QDpdaUtNlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEECY/TKyz9EMqGAJ5Yl41622zylvjOt3F7C1S3SkrrwNXAALO7LKTKHNLikp51IZLg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "InitManager@gmail.com"
