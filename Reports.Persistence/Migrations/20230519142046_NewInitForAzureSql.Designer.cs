@@ -12,18 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcoboxPersistence.Migrations
 {
     [DbContext(typeof(ApplicationsDbContext))]
-    [Migration("20230518162740_test")]
-    partial class test
+    [Migration("20230519142046_NewInitForAzureSql")]
+    partial class NewInitForAzureSql
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Applications.Domain.Application", b =>
                 {
@@ -76,7 +75,7 @@ namespace EcoboxPersistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -146,18 +145,18 @@ namespace EcoboxPersistence.Migrations
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
-                    b.UseTphMappingStrategy();
-
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2ef1121-2cd5-4cc6-b79f-fecf546a6fc8",
+                            ConcurrencyStamp = "ed58b4ec-fb5f-421d-a79d-f241b2efd681",
                             Email = "InitManager@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEECY/TKyz9EMqGAJ5Yl41622zylvjOt3F7C1S3SkrrwNXAALO7LKTKHNLikp51IZLg==",
+                            NormalizedEmail = "InitManager@gmail.com",
+                            NormalizedUserName = "InitManager@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMeb7xhwdYaFPj7IGcZFr9uaA30RPlt+7a9tqG2q479CnrfbcSvgs1xsuThKF3GYRQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "InitManager@gmail.com"
@@ -170,7 +169,7 @@ namespace EcoboxPersistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("BrigadeId")
                         .HasColumnType("int");
@@ -211,7 +210,7 @@ namespace EcoboxPersistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -293,7 +292,7 @@ namespace EcoboxPersistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -317,7 +316,7 @@ namespace EcoboxPersistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");

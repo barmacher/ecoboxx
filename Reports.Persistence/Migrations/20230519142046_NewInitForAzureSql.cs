@@ -3,14 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace EcoboxPersistence.Migrations
 {
-    /// <inheritdoc />
-    public partial class test : Migration
+    public partial class NewInitForAzureSql : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -230,7 +226,7 @@ namespace EcoboxPersistence.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "d2ef1121-2cd5-4cc6-b79f-fecf546a6fc8", "User", "InitManager@gmail.com", false, false, null, null, null, null, "AQAAAAEAACcQAAAAEECY/TKyz9EMqGAJ5Yl41622zylvjOt3F7C1S3SkrrwNXAALO7LKTKHNLikp51IZLg==", null, false, null, false, "InitManager@gmail.com" });
+                values: new object[] { 1, 0, "ed58b4ec-fb5f-421d-a79d-f241b2efd681", "User", "InitManager@gmail.com", false, false, null, null, "InitManager@gmail.com", "InitManager@gmail.com", "AQAAAAEAACcQAAAAEMeb7xhwdYaFPj7IGcZFr9uaA30RPlt+7a9tqG2q479CnrfbcSvgs1xsuThKF3GYRQ==", null, false, null, false, "InitManager@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -298,7 +294,6 @@ namespace EcoboxPersistence.Migrations
                 column: "BrigadeId");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

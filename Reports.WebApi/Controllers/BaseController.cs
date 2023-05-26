@@ -16,6 +16,9 @@ namespace Applications.WebApi.Controllers
         internal int UserId => !User.Identity.IsAuthenticated
             ? default(int)
             : int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        internal int BrigadeId => !User.Identity.IsAuthenticated
+           ? default(int)
+           : int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
     }
 }

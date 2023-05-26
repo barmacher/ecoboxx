@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Ecobox.Applications.Queries.GetApplicationForBrigade;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationsApp.Queries.GetReportList
 {
-    internal class GetApplicationListQueryValidator : AbstractValidator<GetApplicationListQuery>
+    internal class GetApplicationListForBrigadeQueryValidator : AbstractValidator<GetApplicationListForBrigadeQuery>
     {
-        public GetApplicationListQueryValidator() 
+        public GetApplicationListForBrigadeQueryValidator() 
         {
-            RuleFor(x => x.UserId).NotEqual(0);
+            RuleFor(x => x.BrigadeId).NotEqual(0);
         }
     }
 }

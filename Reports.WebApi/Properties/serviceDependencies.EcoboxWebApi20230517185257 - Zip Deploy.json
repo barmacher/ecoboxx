@@ -3,6 +3,12 @@
     "apis1": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/EcoboxWebApiapi/apis/EcoboxWebApi",
       "type": "apis.azure"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/ecoboxdb/databases/Ecobox.DbKrsu",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings"
     }
   }
 }

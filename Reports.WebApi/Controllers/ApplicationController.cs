@@ -8,10 +8,10 @@ using ApplicationsApp.Applications.Commands.CreateReport;
 using ApplicationsApp.Applications.Commands.DeleteCommand;
 using ApplicationsApp.Applications.Commands.UpdateReport;
 using Microsoft.AspNetCore.Authorization;
-using Azure.Core;
 using Applications.Domain;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Ecobox.Applications.Commands.AssignApplication;
+using Ecobox.Applications.Queries.GetApplicationForBrigade;
 
 namespace Applications.WebApi.Controllers
 {
@@ -36,7 +36,7 @@ namespace Applications.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationListVm>> Get(Guid id)
         {
-            var query = new GetApplicationDetailsQuery
+            var query = new GetApplicationDetailsForBrigadeQuery
             {
                 UserId = UserId,
                 Id = id
@@ -91,6 +91,21 @@ namespace Applications.WebApi.Controllers
             return Ok(applicationId);
 
         }
+
+
+        [HttpGet("brigade/applications")]
+        [Authorize(Roles = "BrigadeAccount")]
+
+        public async Task<ActionResult<ApplicationListVm>> GetAllForBrigade()
+        {
+            var query = new GetApplicationListForBrigadeQuery
+            {
+                BrigadeId = BrigadeId
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
 
     }
 }

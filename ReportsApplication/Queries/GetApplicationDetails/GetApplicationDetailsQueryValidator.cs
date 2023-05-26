@@ -2,9 +2,9 @@
 
 namespace ApplicationsApp.Queries.GetReportDetails
 {
-    internal class GetApplicationDetailsQueryValidator : AbstractValidator<GetApplicationDetailsQuery>
+    internal class GetApplicationDetailsForBrigadeQueryValidator : AbstractValidator<GetApplicationDetailsForBrigadeQuery>
     {
-        public GetApplicationDetailsQueryValidator()
+        public GetApplicationDetailsForBrigadeQueryValidator()
         {
             RuleFor(application => application.Id).NotEqual(Guid.Empty);
             RuleFor(application => application.UserId).NotEqual(0);

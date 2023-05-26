@@ -61,6 +61,8 @@ namespace EcoboxPersistence.DataSeeders
         private static void SeedUsers(ModelBuilder modelBuilder)
         {
             SeedUser(modelBuilder, RoleType.Manager, 1, "InitManager@gmail.com", "P@ssw0rd!");
+            SeedUser(modelBuilder, RoleType.Admin, 2, "Admin@gmail.com", "P@ssw0rd!");
+
         }
     }
 }

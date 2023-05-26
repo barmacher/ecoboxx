@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ApplicationsApp.Queries.GetReportDetails
 {
-    public class GetApplicationDetailsQuery : IRequest<ApplicationDetailsVm>
+    public class GetApplicationDetailsForBrigadeQuery : IRequest<ApplicationDetailsVm>
     {
         public int UserId { get; set; }
         public int BrigadeId { get; set; }

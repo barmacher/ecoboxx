@@ -7,19 +7,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationsApp.Queries.GetReportDetails
 {
-    public class GetApplicationDetailsQueryHandler
-        : IRequestHandler<GetApplicationDetailsQuery, ApplicationDetailsVm>
+    public class GetApplicationDetailsForBrigadeQueryHandler
+        : IRequestHandler<GetApplicationDetailsForBrigadeQuery, ApplicationDetailsVm>
     {
         private readonly IApplicationsDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetApplicationDetailsQueryHandler(IApplicationsDbContext dbContext, IMapper mapper)
+        public GetApplicationDetailsForBrigadeQueryHandler(IApplicationsDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
-        public async Task<ApplicationDetailsVm> Handle(GetApplicationDetailsQuery request,
+        public async Task<ApplicationDetailsVm> Handle(GetApplicationDetailsForBrigadeQuery request,
             CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Applications
