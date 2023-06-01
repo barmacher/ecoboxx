@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ApplicationsApp.Queries.GetReportDetails;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MediatR;
 
-namespace ApplicationsApp.Queries.GetReportDetails
+namespace Ecobox.Applications.Queries.GetClientsApplications
 {
-    public class GetApplicationDetailsQuery : IRequest<ApplicationDetailsVm>
+    public class GetClientsApplicationQuery : IRequest<ApplicationDetailsVm>
     {
         public int UserId { get; set; }
         public int BrigadeId { get; set; }

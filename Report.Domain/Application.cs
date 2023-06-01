@@ -23,10 +23,12 @@ namespace Applications.Domain
         public DateTime? EditDate { get; set;}
 
         public ApplicationStatus Status{ get; set; }
+        public bool IsActive { get; set; } = true;
 
         public int UserId { get; set; }
         public User User { get; set; }
 
         public int? BrigadeId { get; set; }
+
     }
 }

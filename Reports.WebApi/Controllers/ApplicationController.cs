@@ -36,7 +36,7 @@ namespace Applications.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationListVm>> Get(Guid id)
         {
-            var query = new GetApplicationDetailsForBrigadeQuery
+            var query = new GetApplicationDetailsQuery
             {
                 UserId = UserId,
                 Id = id

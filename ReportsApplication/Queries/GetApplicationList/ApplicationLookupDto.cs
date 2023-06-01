@@ -3,6 +3,8 @@ using ApplicationsApp.Common.Mapping;
 using System;
 using AutoMapper;
 using ApplicationsApp.Queries.GetReportList;
+using Ecobox.Domain.Enums;
+
 namespace ApplicationsApp.Queries.GetReportList
 {
     public class ApplicationLookupDto : IMapWith<Application>
@@ -14,6 +16,8 @@ namespace ApplicationsApp.Queries.GetReportList
 
         public int Number { get; set; }
 
+        public ApplicationStatus Status { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Application, ApplicationLookupDto>()
@@ -24,7 +28,9 @@ namespace ApplicationsApp.Queries.GetReportList
                 .ForMember(applicationDto => applicationDto.Adress,
                 opt => opt.MapFrom(application => application.Adress))
                 .ForMember(applicationDto => applicationDto.Number,
-                opt => opt.MapFrom(application => application.Number));
+                opt => opt.MapFrom(application => application.Number))
+                .ForMember(applicationDto => applicationDto.Status,
+                opt => opt.MapFrom(application => application.Status));
         }
     }
 }
