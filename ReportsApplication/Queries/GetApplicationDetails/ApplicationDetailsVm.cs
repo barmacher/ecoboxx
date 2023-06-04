@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ecobox.Domain.Enums;
 
 namespace ApplicationsApp.Queries.GetReportDetails
 {
@@ -21,6 +22,9 @@ namespace ApplicationsApp.Queries.GetReportDetails
         public DateTime CreationDate { get; set; }
         public DateTime? EditDate { get; set; }
 
+        public ApplicationStatus Status { get; set; }
+        public bool IsActive { get; set; } = true;
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Application, ApplicationDetailsVm>()
@@ -35,7 +39,11 @@ namespace ApplicationsApp.Queries.GetReportDetails
                 .ForMember(reportVm => reportVm.CreationDate,
                 opt => opt.MapFrom(report => report.CreationDate))
                 .ForMember(reportVm => reportVm.EditDate,
-                opt => opt.MapFrom(report => report.EditDate)).ReverseMap();
+                opt => opt.MapFrom(report => report.EditDate))
+                .ForMember(reportVm => reportVm.Status,
+                opt => opt.MapFrom(report => report.Status))
+                .ForMember(reportVm => reportVm.IsActive,
+                opt => opt.MapFrom(report => report.IsActive)).ReverseMap();
 
         }
     }

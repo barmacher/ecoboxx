@@ -1,9 +1,11 @@
 ﻿using Applications.WebApi.Controllers;
+using ApplicationsApp.Queries.GetReportDetails;
 using ApplicationsApp.Queries.GetReportList;
 using AutoMapper;
 using Ecobox.Applications.Commands.AcceptApplication;
 using Ecobox.Applications.Commands.AssignApplication;
 using Ecobox.Applications.Commands.CompleteApplication;
+using Ecobox.Applications.Queries.GetApplicationDetailsForBrigade;
 using Ecobox.Applications.Queries.GetApplicationForBrigade;
 using Ecobox.Applications.Queries.GetBrigadesApplicationsActive;
 using Ecobox.Applications.Queries.GetClientsApplications;
@@ -85,6 +87,19 @@ namespace Ecobox.WebApi.Controllers
             };
             await Mediator.Send(command);
             return Ok(applicationId);
+        }
+        [HttpGet("{id}")]
+        [Authorize(Roles = "BrigadeAccount")]
+        public async Task<ActionResult<ApplicationListVm>> Get(Guid id)
+        {
+            var query = new GetApplicationDetailsForBrigadeQuery
+            {
+                BrigadeId = BrigadeId,
+                Id = id
+            };
+
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
         }
     }
 }
