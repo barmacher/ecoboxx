@@ -1,6 +1,6 @@
-﻿using Applications.Domain;
-using ApplicationsApp.Applications.Commands.CreateReport;
-using ApplicationsApp.Interfaces;
+﻿using ApplicationsApp.Interfaces;
+using Ecobox.Applications.Commands.AcceptApplication;
+using Ecobox.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,16 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecobox.Applications.Commands.AssignApplication
+namespace Ecobox.Applications.Commands.CompleteApplication
 {
-    public class AssignApplicationHandler : IRequestHandler<AssignApplicationCommand, Guid>
+    internal class CompleteApplicationHandler : IRequestHandler<CompleteApplicationCommand, Guid>
     {
         private readonly IApplicationsDbContext _dbContext;
 
-        public AssignApplicationHandler(IApplicationsDbContext dbContext) =>
+        public CompleteApplicationHandler(IApplicationsDbContext dbContext) =>
             _dbContext = dbContext;
-        
-        public async Task<Guid> Handle(AssignApplicationCommand request, CancellationToken cancellationToken)
+
+        public async Task<Guid> Handle(CompleteApplicationCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -27,7 +27,8 @@ namespace Ecobox.Applications.Commands.AssignApplication
                 {
                     throw new Exception("Is not found");
                 }
-                application.BrigadeId = request.BrigadeId;
+                application.Status = ApplicationStatus.Completed;
+                application.IsActive = false;
 
                 _dbContext.Applications.Update(application);
                 await _dbContext.SaveChangesAsync(cancellationToken);
@@ -40,8 +41,6 @@ namespace Ecobox.Applications.Commands.AssignApplication
 
                 throw new Exception(e.Message);
             }
-           //TODO dodelat'
-           
         }
     }
 }

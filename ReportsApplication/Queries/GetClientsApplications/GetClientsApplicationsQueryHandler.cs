@@ -1,7 +1,9 @@
 ﻿using ApplicationsApp.Common.Exceptions;
 using ApplicationsApp.Interfaces;
 using ApplicationsApp.Queries.GetReportDetails;
+using ApplicationsApp.Queries.GetReportList;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +16,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Ecobox.Applications.Queries.GetClientsApplications
 {
     public class GetClientsApplicationsQueryHandler
-    : IRequestHandler<GetClientsApplicationQuery, ApplicationDetailsVm>
+    : IRequestHandler<GetClientsApplicationQuery, ApplicationListVm>
     {
         private readonly IApplicationsDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -25,16 +27,30 @@ namespace Ecobox.Applications.Queries.GetClientsApplications
             _mapper = mapper;
         }
 
-        public async Task<ApplicationDetailsVm> Handle(GetClientsApplicationQuery request,
+        public async Task<ApplicationListVm> Handle(GetClientsApplicationQuery request,
             CancellationToken cancellationToken)
         {
-            var applications = await _dbContext.Applications
-                .Where(a
-                => a.UserId == request.UserId).ToListAsync();
 
-            return _mapper.Map<ApplicationDetailsVm>(applications);
+            //var applications = await _dbContext.Applications
+            //    .Where(a
+            //=> a.UserId == request.UserId);
+            //var res = new ApplicationListVm { Applications = applications };
+
+            //return res;
+            var applicationsQuery = await _dbContext.Applications
+               .Where(application => application.UserId == request.UserId)
+               .ProjectTo<ApplicationLookupDto>(_mapper.ConfigurationProvider)
+               .ToListAsync(cancellationToken);
+
+            return new ApplicationListVm { Applications = applicationsQuery };
+
+
+
+
+
+
         }
 
-       
     }
+
 }

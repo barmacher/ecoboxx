@@ -16,6 +16,8 @@ namespace ApplicationsApp.Queries.GetReportList
 
         public int Number { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         public ApplicationStatus Status { get; set; }
 
         public void Mapping(Profile profile)
@@ -30,7 +32,7 @@ namespace ApplicationsApp.Queries.GetReportList
                 .ForMember(applicationDto => applicationDto.Number,
                 opt => opt.MapFrom(application => application.Number))
                 .ForMember(applicationDto => applicationDto.Status,
-                opt => opt.MapFrom(application => application.Status));
+                opt => opt.MapFrom(application => application.Status)).ReverseMap();
         }
     }
 }

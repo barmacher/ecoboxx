@@ -35,7 +35,8 @@ namespace ApplicationsApp.Queries.GetReportDetails
                 .ForMember(reportVm => reportVm.CreationDate,
                 opt => opt.MapFrom(report => report.CreationDate))
                 .ForMember(reportVm => reportVm.EditDate,
-                opt => opt.MapFrom(report => report.EditDate));
+                opt => opt.MapFrom(report => report.EditDate)).ReverseMap();
+
         }
     }
 }

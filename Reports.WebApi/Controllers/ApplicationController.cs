@@ -77,34 +77,9 @@ namespace Applications.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost("assingToBrigade")]
-        [Authorize(Roles = "Manager")]
-        public async Task<ActionResult<Guid>> AssignApplicationToBrigade(Guid applicationId, [FromBody] int brigadeId)
-        {
-            var command = new AssignApplicationCommand
-            {
-                ApplicationId = applicationId,
-                BrigadeId = brigadeId,
-
-            };
-            await Mediator.Send(command);
-            return Ok(applicationId);
-
-        }
+       
 
 
-        [HttpGet("brigade/applications")]
-        [Authorize(Roles = "BrigadeAccount")]
-
-        public async Task<ActionResult<ApplicationListVm>> GetAllForBrigade()
-        {
-            var query = new GetApplicationListForBrigadeQuery
-            {
-                BrigadeId = BrigadeId
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
-        }
 
 
     }

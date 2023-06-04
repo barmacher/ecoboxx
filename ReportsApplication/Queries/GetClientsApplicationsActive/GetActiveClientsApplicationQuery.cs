@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ecobox.Applications.Queries.GetClientsApplications
 {
-    public class GetClientsApplicationQuery : IRequest<ApplicationListVm>
+    public class GetActiveClientsApplicationQuery : IRequest<ApplicationListVm>
     {
         public int UserId { get; set; }
      

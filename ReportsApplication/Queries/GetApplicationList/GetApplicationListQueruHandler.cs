@@ -22,7 +22,6 @@ namespace ApplicationsApp.Queries.GetReportList
             CancellationToken cancellationToken)
         {
             var applicationsQuery = await _dbContext.Applications
-                .Where(application => application.UserId == request.UserId)
                 .ProjectTo<ApplicationLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

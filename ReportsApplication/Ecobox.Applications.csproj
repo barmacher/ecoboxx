@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Report.Domain\Ecobox.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\GetAllClients\" />
+  </ItemGroup>
+
 </Project>
