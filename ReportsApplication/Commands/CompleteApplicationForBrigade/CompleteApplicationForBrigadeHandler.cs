@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Ecobox.Applications.Commands.CompleteApplication
 {
-    internal class CompleteApplicationHandler : IRequestHandler<CompleteApplicationCommand, Guid>
+    internal class CompleteApplicationForBrigadeHandler : IRequestHandler<CompleteApplicationForBrigadeCommand, Guid>
     {
         private readonly IApplicationsDbContext _dbContext;
 
-        public CompleteApplicationHandler(IApplicationsDbContext dbContext) =>
+        public CompleteApplicationForBrigadeHandler(IApplicationsDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CompleteApplicationCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CompleteApplicationForBrigadeCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Ecobox.Applications.Commands.CompleteApplication
                 {
                     throw new Exception("Is not found");
                 }
-                application.Status = ApplicationStatus.Completed;
+                application.Status = ApplicationStatus.CompletedForBrigade;
                 application.IsActive = false;
 
                 _dbContext.Applications.Update(application);

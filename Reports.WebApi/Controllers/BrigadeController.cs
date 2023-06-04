@@ -3,6 +3,7 @@ using ApplicationsApp.Queries.GetReportList;
 using AutoMapper;
 using Ecobox.Applications.Commands.AcceptApplication;
 using Ecobox.Applications.Commands.AssignApplication;
+using Ecobox.Applications.Commands.CompleteApplication;
 using Ecobox.Applications.Queries.GetApplicationForBrigade;
 using Ecobox.Applications.Queries.GetBrigadesApplicationsActive;
 using Ecobox.Applications.Queries.GetClientsApplications;
@@ -50,6 +51,7 @@ namespace Ecobox.WebApi.Controllers
             return Ok(applicationId);
         }
         [HttpGet("activeApplications")]
+        [Authorize(Roles = "BrigadeAccount")]
         public async Task<ActionResult<ApplicationListVm>> GetAllActiveApplications()
         {
             var query = new GetActiveBrigadesApplicationsQuery
@@ -61,6 +63,7 @@ namespace Ecobox.WebApi.Controllers
         }
 
         [HttpGet("notactiveApplications")]
+        [Authorize(Roles = "BrigadeAccount")]
         public async Task<ActionResult<ApplicationListVm>> GetAllNotActiveApplications()
         {
             var query = new GetNotActiveBrigadesApplicationsQuery
@@ -69,6 +72,19 @@ namespace Ecobox.WebApi.Controllers
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
+        }
+        [HttpPut("applications/completeApplication")]
+        [Authorize(Roles = "BrigdeAccount")]
+
+        public async Task<ActionResult<ApplicationListVm>> CompleteApplication(Guid applicationId)
+        {
+            var command = new CompleteApplicationForBrigadeCommand
+            {
+                ApplicationId = applicationId,
+
+            };
+            await Mediator.Send(command);
+            return Ok(applicationId);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Ecobox.WebApi.Controllers
 
         public async Task<ActionResult<ApplicationListVm>> CompleteApplication(Guid applicationId)
         {
-            var command = new CompleteApplicationCommand
+            var command = new CompleteApplicationForClientCommand
             {
                 ApplicationId = applicationId,
 

@@ -7,8 +7,8 @@
         // Выполняется бригадой
         Running = 1,
         // Завершено бригадой
-        Completed = 2,
+        CompletedForBrigade = 2,
         // Завершено клиентом
-        ComoletedForClient = 3
+        CompletedForClient = 3
     }
 }

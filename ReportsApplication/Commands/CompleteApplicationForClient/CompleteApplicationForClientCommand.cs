@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ecobox.Applications.Commands.CompleteApplication
 {
-    public class CompleteApplicationCommand : IRequest<Guid>
+    public class CompleteApplicationForClientCommand : IRequest<Guid>
     {
         public Guid ApplicationId { get; set; }
        
