@@ -90,7 +90,7 @@ namespace Ecobox.WebApi.Controllers
         }
         [HttpGet("{id}")]
         [Authorize(Roles = "BrigadeAccount")]
-        public async Task<ActionResult<ApplicationListVm>> Get(Guid id)
+        public async Task<ActionResult<ApplicationListVm>> GetById(Guid id)
         {
             var query = new GetApplicationDetailsForBrigadeQuery
             {
