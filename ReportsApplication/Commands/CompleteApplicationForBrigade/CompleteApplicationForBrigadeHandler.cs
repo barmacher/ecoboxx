@@ -28,7 +28,7 @@ namespace Ecobox.Applications.Commands.CompleteApplication
                     throw new Exception("Is not found");
                 }
                 application.Status = ApplicationStatus.CompletedForBrigade;
-                application.IsActive = false;
+               
 
                 _dbContext.Applications.Update(application);
                 await _dbContext.SaveChangesAsync(cancellationToken);

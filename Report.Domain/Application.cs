@@ -23,6 +23,8 @@ namespace Applications.Domain
         public DateTime? EditDate { get; set;}
 
         public ApplicationStatus Status{ get; set; }
+
+        //public BoxType BoxType { get; set; }
         public bool IsActive { get; set; } = true;
 
         public int UserId { get; set; }

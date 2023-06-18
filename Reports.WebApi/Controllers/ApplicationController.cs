@@ -23,6 +23,7 @@ namespace Applications.WebApi.Controllers
         public ApplicationController(IMapper mapper) => _mapper = mapper;
 
         [HttpGet]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<ActionResult<ApplicationListVm>> GetAll()
         {
             var query = new GetApplicationListQuery

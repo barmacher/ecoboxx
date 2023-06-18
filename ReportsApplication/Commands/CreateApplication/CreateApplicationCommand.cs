@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ecobox.Domain.Enums;
 using MediatR;
 
 namespace ApplicationsApp.Applications.Commands.CreateReport
@@ -14,6 +15,8 @@ namespace ApplicationsApp.Applications.Commands.CreateReport
         public string Description { get; set; }
 
         public string Adress { get; set; }
+        
+        //public BoxType BoxType { get; set; }
 
         public int Number { get; set; }
     }

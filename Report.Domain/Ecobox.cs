@@ -9,5 +9,6 @@ namespace Ecobox.Domain
     public class Ecobox
     {
 
+
     }
 }

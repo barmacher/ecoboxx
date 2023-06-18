@@ -17,7 +17,7 @@ namespace Ecobox.WebApi.Controllers
     public class ManagerController : BaseController
     {
         [HttpPost("assingToBrigade")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task<ActionResult<Guid>> AssignApplicationToBrigade(Guid applicationId, [FromBody] int brigadeId)
         {
             var command = new AssignApplicationCommand
@@ -31,7 +31,7 @@ namespace Ecobox.WebApi.Controllers
 
         }
         [HttpGet("allClients")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Admin")]
 
         public async Task<ActionResult<ClientsListVm>> GetAllClients()
         {
@@ -43,7 +43,7 @@ namespace Ecobox.WebApi.Controllers
             return Ok(vm);
         }
         [HttpGet("allBrigades")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Admin")]
 
         public async Task<ActionResult<BrigadesListVm>> GetAllBrigades()
         {

@@ -23,6 +23,7 @@ namespace ApplicationsApp.Applications.Commands.CreateReport
                     Adress = request.Adress,
                     Number = request.Number,
                     Id = Guid.NewGuid(),
+                    //BoxType = request.BoxType,
                     CreationDate = DateTime.Now,
                     EditDate = null
 

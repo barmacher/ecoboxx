@@ -2,14 +2,17 @@
 using Ecobox.Domain;
 using Ecobox.Domain.Enums;
 using EcoboxPersistence;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace Ecobox.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class UserManageController : ControllerBase
     {
         public readonly UserManager<User> _userManager;
@@ -58,7 +61,7 @@ namespace Ecobox.WebApi.Controllers
         }
 
         [HttpPost("register/brigade")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task RegisterBrigadeAccount(string email, string password, string brigaderName, string brigaderSurname, string? informalName)
         {
             var brigadeAccount = new Brigade()
@@ -107,7 +110,7 @@ namespace Ecobox.WebApi.Controllers
             //await _dbContext.SaveChangesAsync();
         }
         [HttpPost("register/manager")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, Admin")]
         public async Task RegisterManagerAccount(string email, string password)
         {
             var managerAccount = new User()
@@ -141,8 +144,34 @@ namespace Ecobox.WebApi.Controllers
                         .Aggregate((x, y) => x + ";" + y));
             }
 
-            var createdAcc = _userManager.FindByEmailAsync(email);
+            var createdAcc = await _userManager.FindByIdAsync(email);
+            var deletedAcc =  await _userManager.DeleteAsync(createdAcc);
             await _dbContext.SaveChangesAsync();
+        }
+        [HttpPost("delete")]
+        [Authorize(Roles = "Manager, Admin")]
+        public async Task DeleteByUserName(string email)
+        {
+
+            //var createdAcc = await _dbContext.Users.FindAsync(email);
+            //if (createdAcc != null)
+            //    throw new Exception("User with such email is not found");
+            //var deletedAcc = await _userManager.DeleteAsync(createdAcc);
+            //if (!deletedAcc.Succeeded)
+            //{
+            //    throw new Exception("Error");
+            //}
+            //await _dbContext.SaveChangesAsync();
+            var createdAcc = await _userManager.FindByEmailAsync(email);
+            if (createdAcc == null)
+                throw new Exception("User with such email is not found");
+            var deletedAcc = await _userManager.DeleteAsync(createdAcc);
+            if (!deletedAcc.Succeeded)
+            {
+                throw new Exception("Error");
+            }
+            await _dbContext.SaveChangesAsync();
+
         }
     }
 }

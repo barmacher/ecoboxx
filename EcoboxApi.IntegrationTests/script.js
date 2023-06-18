@@ -22,7 +22,7 @@ export default function () {
     let token = '';
 
     const payload = JSON.stringify({
-        email: 'client@gmail.com',
+        email: 'InitManager@gmail.com',
         password: 'P@ssw0rd!'
     });
     const resp = http.post('https://localhost:7152/api/Auth', payload, {

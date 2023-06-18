@@ -76,7 +76,7 @@ namespace Ecobox.WebApi.Controllers
             return Ok(vm);
         }
         [HttpPut("applications/completeApplication")]
-        [Authorize(Roles = "BrigdeAccount")]
+        [Authorize(Roles = "BrigadeAccount")]
 
         public async Task<ActionResult<ApplicationListVm>> CompleteApplication(Guid applicationId)
         {
